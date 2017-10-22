@@ -1,0 +1,22 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.security.core.properties.SecurityProperties",
+      "name": "mysecurity",
+      "type": "com.security.core.properties.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.security.core.properties.SecurityProperties",
+      "name": "mysecurity.browser",
+      "type": "com.security.core.properties.BrowserProperties"
+    },
+    {
+      "sourceType": "com.security.core.properties.SecurityProperties",
+      "name": "mysecurity.code",
+      "type": "com.security.core.properties.ValidateCodeProperties"
+    }
+  ]
+}
