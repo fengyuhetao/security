@@ -24,7 +24,9 @@ import java.io.IOException;
  **/
 @RestController
 public class ValidateCodeController {
-    protected static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
+    protected static final String SESSION_IMAGE_KEY = "SESSION_KEY_IMAGE_CODE";
+
+    protected static final String SESSION_SMS_KEY = "SESSION_KEY_SMS_CODE";
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
@@ -41,14 +43,14 @@ public class ValidateCodeController {
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //        TODO 如果这里将ImageCode，改为ValidateCode，那么imageCode.getImage()将无法正常工作
         ImageCode imageCode = (ImageCode) imageCodeGenerator.generate(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_IMAGE_KEY, imageCode);
         ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
     }
 
     @GetMapping("/code/sms")
     public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
         ValidateCode smsCode = smsCodeGenerator.generate(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, smsCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_SMS_KEY, smsCode);
         String mobile = ServletRequestUtils.getStringParameter(request, "mobile");
         smsCodeSender.send(mobile, smsCode.getCode());
     }
