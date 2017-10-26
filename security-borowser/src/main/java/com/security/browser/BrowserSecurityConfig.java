@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -43,6 +44,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private SpringSocialConfigurer springSocialConfigurer;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -75,6 +79,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
         //        http.httpBasic()
         http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+            .apply(springSocialConfigurer)
+                .and()
             .formLogin()
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
@@ -87,7 +93,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
                 .userDetailsService(userDetailsService)
                 .and()
             .authorizeRequests()
-                .antMatchers("/security-signIn.html", "/code/*", "/authentication/require", "/authentication/mobile", securityProperties.getBrowser().getLoginPage()).permitAll()
+                .antMatchers("/security-signIn.html", "/user/regist", "/code/*", "/authentication/require", "/authentication/mobile", securityProperties.getBrowser().getLoginPage(), securityProperties.getBrowser().getSignUpUrl()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

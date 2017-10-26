@@ -17,6 +17,11 @@
       "sourceType": "com.security.core.properties.SecurityProperties",
       "name": "mysecurity.code",
       "type": "com.security.core.properties.ValidateCodeProperties"
+    },
+    {
+      "sourceType": "com.security.core.properties.SecurityProperties",
+      "name": "mysecurity.social",
+      "type": "com.security.core.properties.SocialProperties"
     }
   ]
 }

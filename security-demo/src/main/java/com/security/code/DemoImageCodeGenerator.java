@@ -2,11 +2,9 @@ package com.security.code;/**
  * Created by HT on 2017/10/15.
  */
 
-import com.security.core.validate.code.image.ImageCode;
 import com.security.core.validate.code.ValidateCodeGenerator;
-import org.springframework.web.context.request.ServletWebRequest;
+import com.security.core.validate.code.image.ImageCode;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**

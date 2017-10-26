@@ -15,4 +15,7 @@ public class BrowserProperties {
     private LoginType loginType = LoginType.JSON;
 
     private Integer rememberMeSeconds = 3600;
+
+//    注册页面
+    private String signUpUrl = "/security-signUp.html";
 }
